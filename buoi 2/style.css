@@ -1,0 +1,41 @@
+h1,
+.text_red {
+	color: red;
+}
+
+#top {
+	font-size: 100px;
+}
+
+[type] {
+	color: violet;
+}
+
+[type="text"] {
+	color: blue;
+}
+
+ul li {
+	color: red;
+}
+
+ul > li {
+	color: blue;
+}
+
+p:hover {
+	background: violet;
+}
+
+input:focus {
+	background: #ff2600;
+}
+
+img {
+	width: 300px;
+	transition: all .5s ease-in-out 1s;
+}
+
+img:hover {
+	transform: scale(2);
+}
