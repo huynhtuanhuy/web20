@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Quyết đê</title>
+	<script
+		src="http://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+</head>
+<body>
+	<nav>
+		<a href="/ask">Hỏi nhanh</a>
+		<a href="/">Đáp gọn</a>
+	</nav>
+	<h1>Question</h1>
+	<a href="#" id="yes">
+		<button>Sai/Không/Trái</button>
+	</a>
+	<a href="#" id="no">
+		<button>Đúng/Có/Phải</button>
+	</a>
+	<button>Kết quả vote</button>
+	<button>Câu hỏi khác</button>
+
+	<!-- $("#yes, #no").on("click", function(event) {
+		console.log(event.target.id);
+		if (event.target.id == "yes") {
+			question.yes = Number(question.yes) + 1;
+		} else {
+			question.no = Number(question.no) + 1;
+		}
+		
+		$.ajax({
+			url: '/editquestion',
+			type: 'PUT',
+			data: {
+				question
+			},
+			success: function(data) {
+				console.log(data);
+			}
+		})
+	}); -->
+	<script>
+		let question;
+
+		$.ajax({
+			url: '/randomquestion',
+			success: function(questionData) {
+				console.log(questionData)
+				$('h1').text(questionData.content);
+				$('#yes').attr("href", `/vote/${questionData.id}/yes`);
+				$('#no').attr("href", `/vote/${questionData.id}/no`);
+				question = questionData;
+			}
+		});
+	</script>
+</body>
+</html>

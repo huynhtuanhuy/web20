@@ -21,7 +21,11 @@
 	<script>
 		const questionInputElem = document.getElementById('questionInput');
 		questionInputElem.addEventListener("input", () => {
-			const remainChar = 200 - questionInputElem.value.length;
+			let remainChar = 200 - questionInputElem.value.length; // -200
+			if(remainChar <= 0) {
+				questionInputElem.value = questionInputElem.value.slice(0, 200);
+				remainChar = 200 - questionInputElem.value.length;
+			}
 			document.getElementById('remainChar').innerText = "Còn "+ remainChar +"/200 ký tự";
 		});
 	</script>
