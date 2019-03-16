@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Question Info</title>
+	<script
+		src="http://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+</head>
+<body>
+	<h1>Question</h1>
+	<div>Tổng vote: <span id="total"></span></div>
+	<div>Vote yes: <span id="yes"></span></div>
+	<div>Vote no: <span id="no"></span></div>
+	<a href="/"><button>Xem câu hỏi khác</button></a>
+
+	<script>
+		const questionId = window.location.pathname.split('/')[2];
+		$.ajax({
+			type: 'GET',
+			url: `/detail/${questionId}`,
+			success: function(question) {
+				const total = Number(question.yes) + Number(question.no);
+				$("#total").text(total);
+				$("#yes").text(Number(question.yes)*100/total);
+				$("#no").text(Number(question.no)*100/total);
+			}
+		});
+	</script>
+</body>
+</html>

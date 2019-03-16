@@ -53,7 +53,27 @@ app.get("/vote/:questionId/yes", (req, res) => {
 	questionList[questionId].yes = Number(questionList[questionId].yes) + 1;
 	// console.log(questionList);
 	fs.writeFileSync("./questions.json", JSON.stringify(questionList));
-	res.send();
+	res.redirect(`/question/${questionId}`);
+});
+
+app.get("/vote/:questionId/no", (req, res) => {
+	const questionList = JSON.parse(fs.readFileSync("./questions.json", "utf-8"));
+	const questionId = req.params.questionId;
+	questionList[questionId].no = Number(questionList[questionId].no) + 1;
+	// console.log(questionList);
+	fs.writeFileSync("./questions.json", JSON.stringify(questionList));
+	res.redirect(`/question/${questionId}`);
+});
+
+app.get("/question/:questionId", (req, res) => {
+	res.sendFile(__dirname + "/views/questionInfo.html");
+});
+
+app.get("/detail/:questionId", (req, res) => {
+	const questionId = req.params.questionId;
+	const questionList = JSON.parse(fs.readFileSync("./questions.json", "utf-8"));
+	const question = questionList[questionId];
+	res.send(question);
 });
 
 // app.post("/", (req, res) => {
