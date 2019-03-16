@@ -23,10 +23,10 @@
 			type: 'GET',
 			url: `/detail/${questionId}`,
 			success: function(question) {
-				const total = Number(question.yes) + Number(question.no);
+				const total = Number((question.yes)) + Number(question.no);
 				$("#total").text(total);
-				$("#yes").text(Number(question.yes)*100/total);
-				$("#no").text(Number(question.no)*100/total);
+				$("#yes").text((total > 0) ? Number(question.yes)*100/total : 0);
+				$("#no").text((total > 0) ? Number(question.no)*100/total : 0);
 			}
 		});
 	</script>
