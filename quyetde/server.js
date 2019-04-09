@@ -1,7 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const fs = require('fs');
 const app = express();
+
+const QuestionModel = require('./models/question');
+
+mongoose.connect(
+	'mongodb://localhost:27017/web20-quyetde',
+	{ useNewUrlParser: true },
+	(err) => {
+		if(err) console.log(err)
+		else console.log("Connect to DB success!");
+		QuestionModel.find({}, (err, docs) => {
+			if(err) console.log(err)
+			else console.log(docs);
+		});
+	});
 
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -35,15 +50,14 @@ app.put("/editquestion", (req, res) => {
 });
 
 app.post("/addquestion", (req, res) => {
-	const questionList = JSON.parse(fs.readFileSync("./questions.json", "utf-8"));
-	const question = {
-		content: req.body.question,
-		yes: 0,
-		no: 0,
-		id: questionList.length,
-	};
-	questionList.push(question);
-	fs.writeFileSync("./questions.json", JSON.stringify(questionList));
+	const questionContent = req.body.question;
+	QuestionModel.create({
+		content: questionContent,
+		yes: 10,
+	}, (err, questionCreated) => {
+		if(err) console.log(err)
+		else console.log(questionCreated);
+	})
 	res.redirect("/ask");
 });
 
