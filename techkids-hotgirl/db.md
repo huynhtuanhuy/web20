@@ -14,7 +14,7 @@
 	- gender
 	- account
 - Comments:
-	- imageId
+	- imageId => Images
 	- time
-	- userId
+	- userId => Users
 	- content
